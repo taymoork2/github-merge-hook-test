@@ -9,7 +9,8 @@ on:
       - master
 
 jobs:
-  route:
+  router:
+    runs-on: ubuntu-latest
     steps:
       - name: Merge Hook
         if: github.event == 'pull_request' && github.event.action == 'closed' && github.pull_request == 'merged'
