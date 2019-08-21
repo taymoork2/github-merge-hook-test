@@ -7,13 +7,13 @@ on:
   push:
     branches:
       - master
-      
+
 jobs:
   route:
     steps:
       - name: Merge Hook
         if: github.event == 'pull_request' && github.event.action == 'closed' && github.pull_request == 'merged'
-        uses: .github/workflows/integration.yml
+        uses: ./integration
       - name: NPM Publish
         if: github.event == 'push'
-        uses: .github/workflows/publish.yml
+        uses: ./publish
