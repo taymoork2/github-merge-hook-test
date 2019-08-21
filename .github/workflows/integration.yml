@@ -1,0 +1,39 @@
+name: Merge Hook - Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  integration_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js lts/carbon
+      uses: actions/setup-node@v1
+      with:
+        node-version: 8
+    - name: Install Dependencies
+      run: npm ci
+    - name: Build Packages and Samples
+      run: npm run build --if-present
+    - name:
+      run: npm run test
+#     - name: Run all integration tests on Mac and Windows version of Chrome and Firefox 
+#       run: npm run test -- --os Mac Windows --browsers Chrome Firefox
+#     - name: Check if any integration tests failed
+#       run: |
+#         failures=$(find reports -iname 'webex*.xml' -print0 | xargs -0 sed -n 's/.*failures=\"\([^\"]*\).*/\1/p' | xargs)
+#         errors=$(find reports -iname 'webex*.xml' -print0 | xargs -0 sed -n 's/.*errors=\"\([^\"]*\).*/\1/p' | xargs)
+
+#         echo Failures $failures
+#         echo Errors $errors
+
+#         if [[ "$failures" -ne *0* ]] || [[ "$errors" -ne *0* ]]; then
+#           echo 'Unit tests failed'
+#           exit 1
+#         fi
