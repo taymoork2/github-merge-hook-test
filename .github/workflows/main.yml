@@ -1,0 +1,19 @@
+name: Workflow Router
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      
+jobs:
+  route:
+    steps:
+      - name: Merge Hook
+        if: github.event == 'pull_request' && github.event.action == 'closed' && github.pull_request == 'merged'
+        uses: .github/workflows/integration.yml
+      - name: NPM Publish
+        if: github.event == 'push'
+        uses: .github/workflows/publish.yml
