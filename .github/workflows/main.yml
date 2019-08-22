@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 8
+      - run: echo ${github.event}
       - name: Check if PR is merging and `npm ci`, build, and test
         if: github.event.action == 'closed' && github.pull_request == 'merged'
         run: |
